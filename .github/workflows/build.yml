@@ -2,9 +2,13 @@ name: build
 
 on:
   push:
-    branches: {"master", "preparation"}
-  pull_request: 
-    branches: {"master", "preparation"}
+    branches:
+      - master
+      - preparation
+  pull_request:
+    branches:
+      - master
+      - preparation
   workflow_dispatch:
 
 jobs:
@@ -14,12 +18,13 @@ jobs:
     container:
       image: returntocorp/semgrep
     steps:
-    - name: FetchSourceCode
-      uses: actions/checkout@v3
-    - name: Semgrep 
-      run: semgrep ci --config=auto --sarif --output=semgrep.sarif || true
-    - name: Upload
-      uses: github/codeql-action/upload-sarif@v2
-      with: 
-        sarif_file: semgrep:sarif
-      if: always()
+      - name: Fetch Source Code
+        uses: actions/checkout@v3
+
+      - name: Semgrep
+        run: semgrep ci --config=auto --sarif --output=semgrep.sarif || true
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: semgrep.sarif
