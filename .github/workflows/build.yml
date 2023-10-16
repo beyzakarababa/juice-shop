@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches: {"master", "preparation"}
-  pull_requests: 
+  pull_request: 
     branches: {"master", "preparation"}
   workflow_dispatch:
 
