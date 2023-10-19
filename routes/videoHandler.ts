@@ -54,8 +54,8 @@ exports.promotionVideo = () => {
       let template = buf.toString()
       const subs = getSubsFromFile()
 
-      const sanitizedSubs = entities.encode(subs);
-      challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(sanitizedSubs, '&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;') });
+      const sanitizedSubs = entities.encode(subs)
+      challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(sanitizedSubs, '&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;') })
 
       const theme = themes[config.get<string>('application.theme')]
       template = template.replace(/_title_/g, entities.encode(config.get('application.name')))
